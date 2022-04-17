@@ -36,15 +36,29 @@ trap exit_on_signal_SIGTERM SIGTERM
 ## Banner
 banner() {
 	clear
-    cat <<- EOF
-		${RED}┌──────────────────────────────────────────────────────────┐
-		${RED}│${GREEN}░░░▀█▀░█▀▀░█▀▄░█▄█░█░█░█░█░░░█▀▄░█▀▀░█▀▀░█░█░▀█▀░█▀█░█▀█░░${RED}│
-		${RED}│${GREEN}░░░░█░░█▀▀░█▀▄░█░█░█░█░▄▀▄░░░█░█░█▀▀░▀▀█░█▀▄░░█░░█░█░█▀▀░░${RED}│
-		${RED}│${GREEN}░░░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░░░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀░░░░${RED}│
-		${RED}└──────────────────────────────────────────────────────────┘
-		${BLUE}By : Aditya Shakya // @adi1090x
-		${BLUE}Modded By : Kuba // @kapitankuka2011
-	EOF
+	if ! [ -x "$(command -v figlet)" ]; then
+  		cat <<- EOF
+			${RED}┌──────────────────────────────────────────────────────────┐
+			${RED}│${GREEN}░░░▀█▀░█▀▀░█▀▄░█▄█░█░█░█░█░░░█▀▄░█▀▀░█▀▀░█░█░▀█▀░█▀█░█▀█░░${RED}│
+			${RED}│${GREEN}░░░░█░░█▀▀░█▀▄░█░█░█░█░▄▀▄░░░█░█░█▀▀░▀▀█░█▀▄░░█░░█░█░█▀▀░░${RED}│
+			${RED}│${GREEN}░░░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░░░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀░░░░${RED}│
+			${RED}└──────────────────────────────────────────────────────────┘
+			${BLUE}By : Aditya Shakya // @adi1090x
+			${BLUE}Modded By : Kuba // @kapitankuka2011
+		EOF
+	else
+		cat <<- EOF
+			${RED}┌──────────────────────────────────────────────────────────┐
+			${RED}│${GREEN}░░░▀█▀░█▀▀░█▀▄░█▄█░█░█░█░█░░░█▀▄░█▀▀░█▀▀░█░█░▀█▀░█▀█░█▀█░░${RED}│
+			${RED}│${GREEN}░░░░█░░█▀▀░█▀▄░█░█░█░█░▄▀▄░░░█░█░█▀▀░▀▀█░█▀▄░░█░░█░█░█▀▀░░${RED}│
+			${RED}│${GREEN}░░░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░░░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀░░░░${RED}│
+			${RED}└──────────────────────────────────────────────────────────┘
+		EOF
+		figlet -c -f small "Classic"
+		cat <<- EOF
+			${BLUE}By : Aditya Shakya // @adi1090x
+			${BLUE}Modded By : Kuba // @kapitankuka2011
+		EOF
 }
 
 ## Show usages
@@ -118,7 +132,7 @@ setup_omz() {
 		if [[ "\$USER" == "root" ]]; then
 			PROMPT="%{$fg[yellow]%}%~%{$reset_color%} $ "
 		else
-			PROMPT="%{$fg[green]%}%~%{$reset_color%} $ "
+			PROMPT="%{$fg[green]f%}%~%{$reset_color%} $ "
 		fi
 			
 
@@ -261,9 +275,9 @@ setup_launcher() {
 
 		# Start VNC Server
 		if [[ \$(pidof Xvnc) ]]; then
-		    echo -e "\\n[!] Server Already Running."
+		    echo -e "\\n[!] Server is already running."
 		    { vncserver -list; echo; }
-		    read -p "Kill VNC Server? (Y/N) : "
+		    read -p "Kill the server? (Y/N) : "
 		    if [[ "\$REPLY" == "Y" || "\$REPLY" == "y" ]]; then
 		        { killall Xvnc; echo; }
 		    else
@@ -285,7 +299,7 @@ post_msg() {
 	cat <<- _MSG_
 		[-] Restart termux and enter ${ORANGE}startdesktop ${GREEN}command to start the VNC server.
 		[-] In VNC client, enter ${ORANGE}127.0.0.1:5901 ${GREEN}as Address and Password you created to connect.	
-		[-] To connect via PC over Wifi or Hotspot, use it's IP, ie: ${ORANGE}192.168.43.1:5901 ${GREEN}to connect. Also, use TigerVNC client.	
+		[-] To connect via PC over Wifi or Hotspot, use it's IP, ie: ${ORANGE}192.168.1.37:5901 ${GREEN}to connect. Also, use TigerVNC client.	
 		[-] Make sure you enter the correct port. ie: If server is running on ${ORANGE}Display :2 ${GREEN}then port is ${ORANGE}5902 ${GREEN}and so on.
 		  
 	_MSG_
@@ -343,11 +357,19 @@ uninstall_td() {
 	echo -e ${RED}"\n[*] Termux Desktop Unistalled Successfully.\n"
 }
 
+about() {
+	banner
+	echo "The history of this fork is only that Kuba hated the new style and he was using SSH and prompt was looking.... that ugly i cant say it"
+	echo "and basiclly this is fark (i copied adi1090x's work haha), so yeah and also dont sue me (from the licence you can mod it)"
+}
+
 ## Main
-if [[ "$1" == "--install" ]]; then
+if [[ "$1" == "--install" || "$1" == "-i" ]]; then
 	install_td
-elif [[ "$1" == "--uninstall" ]]; then
+elif [[ "$1" == "--uninstall" || "$1" == "-i" ]]; then
 	uninstall_td
+elif [[ "$1" == "--about" || "$1" == "-a"]]; then
+	about
 else
 	{ usage; reset_color; exit 0; }
 fi
