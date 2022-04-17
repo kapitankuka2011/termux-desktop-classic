@@ -133,7 +133,7 @@ setup_omz() {
 		if [[ "\$USER" == "root" ]]; then
 			PROMPT="%{$fg[yellow]%}%~%{$reset_color%} $ "
 		else
-			PROMPT="%{$fg[green]f%}%~%{$reset_color%} $ "
+			PROMPT="%{$fg[green]%}%~%{$reset_color%} $ "
 		fi
 			
 
@@ -160,6 +160,7 @@ setup_omz() {
 		alias lc='lolcat'
 		alias xx='chmod +x'
 		alias rel='termux-reload-settings'
+		PROMPT="%{$fg[green]%}%~%{$reset_color%} $ "
 
 		#------------------------------------------
 
