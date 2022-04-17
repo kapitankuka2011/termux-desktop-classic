@@ -59,6 +59,7 @@ banner() {
 			${BLUE}By : Aditya Shakya // @adi1090x
 			${BLUE}Modded By : Kuba // @kapitankuka2011
 		EOF
+	fi
 }
 
 ## Show usages
