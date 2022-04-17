@@ -369,7 +369,7 @@ if [[ "$1" == "--install" || "$1" == "-i" ]]; then
 	install_td
 elif [[ "$1" == "--uninstall" || "$1" == "-i" ]]; then
 	uninstall_td
-elif [[ "$1" == "--about" || "$1" == "-a"]]; then
+elif [[ "$1" == "--about" || "$1" == "-a" ]]; then
 	about
 else
 	{ usage; reset_color; exit 0; }
