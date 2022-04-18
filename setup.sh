@@ -368,7 +368,7 @@ about() {
 ## Main
 if [[ "$1" == "--install" || "$1" == "-i" ]]; then
 	install_td
-elif [[ "$1" == "--uninstall" || "$1" == "-i" ]]; then
+elif [[ "$1" == "--uninstall" || "$1" == "-u" ]]; then
 	uninstall_td
 elif [[ "$1" == "--about" || "$1" == "-a" ]]; then
 	about
